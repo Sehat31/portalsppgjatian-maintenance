@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portal SPPG Jatian sedang dalam maintenance. Hubungi admin untuk informasi lebih lanjut.">
+    <meta name="theme-color" content="#1a1a2e">
+    <title>Maintenance - Portal SPPG Jatian</title>
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🌙</text></svg>">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #0f3460;
+            --highlight: #e94560;
+            --text: #eaeaea;
+            --glow: #00d4ff;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 50%, var(--accent) 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        .particles {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: var(--glow);
+            border-radius: 50%;
+            opacity: 0.6;
+            animation: float-up linear infinite;
+        }
+
+        @keyframes float-up {
+            0% {
+                transform: translateY(100vh) scale(0);
+                opacity: 0;
+            }
+            10% { opacity: 0.6; }
+            90% { opacity: 0.6; }
+            100% {
+                transform: translateY(-100px) scale(1);
+                opacity: 0;
+            }
+        }
+
+        .moon {
+            position: fixed;
+            top: 40px;
+            right: 60px;
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            background: radial-gradient(circle, #f5f3ce 0%, #e8e4b8 50%, #d4cf94 100%);
+            box-shadow: 0 0 40px rgba(245, 243, 206, 0.4), 0 0 80px rgba(245, 243, 206, 0.2);
+            animation: moon-glow 3s ease-in-out infinite alternate;
+            z-index: 1;
+        }
+
+        @keyframes moon-glow {
+            0% { box-shadow: 0 0 40px rgba(245, 243, 206, 0.4), 0 0 80px rgba(245, 243, 206, 0.2); }
+            100% { box-shadow: 0 0 60px rgba(245, 243, 206, 0.6), 0 0 120px rgba(245, 243, 206, 0.3); }
+        }
+
+        .loader-wrapper {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 9999;
+            transition: opacity 0.8s ease, visibility 0.8s ease;
+        }
+
+        .loader-wrapper.hidden {
+            opacity: 0;
+            visibility: hidden;
+        }
+
+        .loader {
+            display: flex;
+            gap: 8px;
+        }
+
+        .loader span {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--glow);
+            animation: bounce 1.4s ease-in-out infinite;
+        }
+
+        .loader span:nth-child(2) { animation-delay: 0.2s; }
+        .loader span:nth-child(3) { animation-delay: 0.4s; }
+
+        @keyframes bounce {
+            0%, 80%, 100% {
+                transform: scale(0.6);
+                opacity: 0.4;
+            }
+            40% {
+                transform: scale(1);
+                opacity: 1;
+            }
+        }
+
+        .container {
+            text-align: center;
+            z-index: 10;
+            padding: 40px;
+            max-width: 700px;
+            width: 90%;
+            animation: fadeInUp 1s ease 0.5s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .logo {
+            width: 120px;
+            height: 120px;
+            margin: 0 auto 30px;
+            background: linear-gradient(135deg, var(--glow), #0066ff);
+            border-radius: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: 0 10px 40px rgba(0, 212, 255, 0.3);
+            animation: logo-pulse 2s ease-in-out infinite alternate;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .logo::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255,255,255,0.1), transparent);
+            animation: shine 3s ease-in-out infinite;
+        }
+
+        @keyframes shine {
+            0% { transform: translateX(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) rotate(45deg); }
+        }
+
+        @keyframes logo-pulse {
+            0% { transform: scale(1); }
+            100% { transform: scale(1.05); }
+        }
+
+        .logo-text {
+            font-size: 18px;
+            font-weight: 900;
+            color: white;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+            line-height: 1.2;
+            z-index: 1;
+        }
+
+        .logo-text .sppg {
+            font-size: 24px;
+            display: block;
+        }
+
+        .logo-text .jatian {
+            font-size: 14px;
+            display: block;
+            margin-top: 4px;
+        }
+
+        .title {
+            color: var(--text);
+            font-size: 2.2rem;
+            font-weight: 700;
+            margin-bottom: 10px;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
+        }
+
+        .subtitle {
+            color: rgba(255,255,255,0.7);
+            font-size: 1.1rem;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(233, 69, 96, 0.2);
+            border: 1px solid rgba(233, 69, 96, 0.4);
+            padding: 12px 24px;
+            border-radius: 50px;
+            margin-bottom: 40px;
+            animation: pulse-badge 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-badge {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(233, 69, 96, 0.4); }
+            50% { box-shadow: 0 0 0 10px rgba(233, 69, 96, 0); }
+        }
+
+        .status-dot {
+            width: 12px;
+            height: 12px;
+            background: var(--highlight);
+            border-radius: 50%;
+            animation: blink 1s ease-in-out infinite;
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
+        }
+
+        .status-text {
+            color: var(--highlight);
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .countdown-section {
+            margin-bottom: 40px;
+        }
+
+        .countdown-label {
+            color: rgba(255,255,255,0.6);
+            font-size: 0.9rem;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .countdown {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            flex-wrap: wrap;
+        }
+
+        .countdown-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 16px;
+            padding: 20px 15px;
+            min-width: 90px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .countdown-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 212, 255, 0.2);
+            border-color: var(--glow);
+        }
+
+        .countdown-number {
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: var(--glow);
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+            line-height: 1;
+            transition: all 0.3s ease;
+        }
+
+        .countdown-unit {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.5);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-top: 8px;
+        }
+
+        .progress-container {
+            margin: 30px auto;
+            max-width: 400px;
+        }
+
+        .progress-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 3px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--glow), var(--highlight));
+            border-radius: 3px;
+            transition: width 1s ease;
+            animation: progress-glow 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes progress-glow {
+            0% { box-shadow: 0 0 10px var(--glow); }
+            100% { box-shadow: 0 0 20px var(--glow); }
+        }
+
+        .progress-text {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.8rem;
+            margin-top: 8px;
+        }
+
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 30px 0;
+        }
+
+        .service-item {
+            background: rgba(255,255,255,0.05);
+            border: 1px solid rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .service-item:hover {
+            background: rgba(255,255,255,0.08);
+            transform: translateY(-3px);
+        }
+
+        .service-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .service-name {
+            color: var(--text);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 4px;
+        }
+
+        .service-status {
+            font-size: 0.7rem;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-weight: 600;
+        }
+
+        .service-status.maintenance {
+            background: rgba(233, 69, 96, 0.2);
+            color: var(--highlight);
+        }
+
+        .service-status.online {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        .whatsapp-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            background: linear-gradient(135deg, #25d366, #128c7e);
+            color: white;
+            text-decoration: none;
+            padding: 16px 32px;
+            border-radius: 50px;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 20px rgba(37, 211, 102, 0.4);
+            animation: wa-bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes wa-bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-5px); }
+        }
+
+        .whatsapp-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 30px rgba(37, 211, 102, 0.6);
+        }
+
+        .whatsapp-btn svg {
+            width: 24px;
+            height: 24px;
+            fill: white;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: rgba(255,255,255,0.4);
+            font-size: 0.8rem;
+        }
+
+        .footer strong {
+            color: var(--glow);
+        }
+
+        @media (max-width: 600px) {
+            .title { font-size: 1.6rem; }
+            .subtitle { font-size: 0.95rem; }
+            .countdown-item {
+                min-width: 70px;
+                padding: 15px 10px;
+            }
+            .countdown-number { font-size: 1.8rem; }
+            .moon {
+                width: 50px;
+                height: 50px;
+                top: 20px;
+                right: 20px;
+            }
+            .logo {
+                width: 90px;
+                height: 90px;
+            }
+            .logo-text .sppg { font-size: 18px; }
+            .logo-text .jatian { font-size: 11px; }
+            .services { grid-template-columns: repeat(2, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="loader-wrapper" id="loader">
+        <div class="loader">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+    </div>
+
+    <div class="particles" id="particles"></div>
+    <div class="moon"></div>
+
+    <div class="container">
+        <div class="logo">
+            <div class="logo-text">
+                <span class="sppg">SPPG</span>
+                <span class="jatian">Jatian</span>
+            </div>
+        </div>
+
+        <h1 class="title">🌙 Sedang Maintenance</h1>
+        <p class="subtitle">
+            Kami sedang melakukan pemeliharaan sistem <strong>portalsppgjatian.my.id</strong> untuk meningkatkan kualitas layanan.<br>
+            Mohon maaf atas ketidaknyamanannya.
+        </p>
+
+        <div class="status-badge">
+            <div class="status-dot"></div>
+            <span class="status-text">⚠️ Mode Maintenance</span>
+        </div>
+
+        <div class="services">
+            <div class="service-item">
+                <div class="service-icon">🌐</div>
+                <div class="service-name">Website</div>
+                <span class="service-status maintenance">Maintenance</span>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">📧</div>
+                <div class="service-name">Email</div>
+                <span class="service-status online">Online</span>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">🗄️</div>
+                <div class="service-name">Database</div>
+                <span class="service-status maintenance">Maintenance</span>
+            </div>
+            <div class="service-item">
+                <div class="service-icon">📱</div>
+                <div class="service-name">WhatsApp</div>
+                <span class="service-status online">Online</span>
+            </div>
+        </div>
+
+        <div class="countdown-section">
+            <p class="countdown-label">⏳ Estimasi Selesai Dalam</p>
+            <div class="countdown" id="countdown">
+                <div class="countdown-item">
+                    <div class="countdown-number" id="hours">12</div>
+                    <div class="countdown-unit">Jam</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="minutes">00</div>
+                    <div class="countdown-unit">Menit</div>
+                </div>
+                <div class="countdown-item">
+                    <div class="countdown-number" id="seconds">00</div>
+                    <div class="countdown-unit">Detik</div>
+                </div>
+            </div>
+
+            <div class="progress-container">
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%"></div>
+                </div>
+                <p class="progress-text" id="progressText">Memulai maintenance...</p>
+            </div>
+        </div>
+
+        <a href="https://wa.me/6281238176719?text=Halo%20Admin%20Portal%20SPPG%20Jatian%2C%0A%0ASaya%20melihat%20portalsppgjatian.my.id%20sedang%20maintenance.%20Mohon%20info%20lebih%20lanjut." 
+           class="whatsapp-btn" 
+           target="_blank" 
+           rel="noopener noreferrer">
+            <svg viewBox="0 0 24 24">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+            </svg>
+            Hubungi Admin via WhatsApp
+        </a>
+
+        <div class="footer">
+            <p>© 2026 <strong>SPPG Jatian</strong>. All rights reserved.</p>
+            <p style="margin-top: 5px;">🌐 portalsppgjatian.my.id | Hosted on GitHub Pages ⚡</p>
+        </div>
+    </div>
+
+    <script>
+        window.addEventListener('load', () => {
+            setTimeout(() => {
+                document.getElementById('loader').classList.add('hidden');
+            }, 1500);
+        });
+
+        function createParticles() {
+            const container = document.getElementById('particles');
+            const particleCount = 50;
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDuration = (Math.random() * 8 + 4) + 's';
+                particle.style.animationDelay = Math.random() * 5 + 's';
+                particle.style.width = (Math.random() * 4 + 2) + 'px';
+                particle.style.height = particle.style.width;
+                container.appendChild(particle);
+            }
+        }
+        createParticles();
+
+        const TOTAL_DURATION = 12 * 60 * 60 * 1000;
+        let startTime = localStorage.getItem('maintenanceStartTime');
+        if (!startTime) {
+            startTime = Date.now();
+            localStorage.setItem('maintenanceStartTime', startTime);
+        }
+        startTime = parseInt(startTime);
+        const endTime = startTime + TOTAL_DURATION;
+
+        function updateCountdown() {
+            const now = Date.now();
+            const remaining = endTime - now;
+
+            if (remaining <= 0) {
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                document.getElementById('progressFill').style.width = '100%';
+                document.getElementById('progressText').textContent = '✅ Maintenance selesai!';
+                return;
+            }
+
+            const hours = Math.floor(remaining / (1000 * 60 * 60));
+            const minutes = Math.floor((remaining % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((remaining % (1000 * 60)) / 1000);
+
+            document.getElementById('hours').textContent = hours.toString().padStart(2, '0');
+            document.getElementById('minutes').textContent = minutes.toString().padStart(2, '0');
+            document.getElementById('seconds').textContent = seconds.toString().padStart(2, '0');
+
+            const elapsed = now - startTime;
+            const progress = Math.min((elapsed / TOTAL_DURATION) * 100, 100);
+            document.getElementById('progressFill').style.width = progress + '%';
+            document.getElementById('progressText').textContent = `Progress: ${progress.toFixed(1)}% selesai`;
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+    </script>
+</body>
+</html>
